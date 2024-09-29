@@ -22,7 +22,7 @@ export async function BOARD(): Promise<JSX.Element> {
           <tr key={row.id}>
             <td>{row.id}</td>
             <td>{row.title}</td>
-            <td>{row.user}</td>
+            <td>{row.name}</td>
             <td>{row.created_at.toLocaleString()}</td>
             <td>{row.views}</td>
           </tr>
