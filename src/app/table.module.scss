@@ -26,8 +26,12 @@
   
   .table td:nth-child(2) {
     text-align: left;
-    color: #1a73e8; /* 제목의 글씨 색상 (파란색) */
     font-weight: bold;
+    cursor: pointer;
+
+    &:hover {
+      color: #1a73e8;
+    }
   }
   
   .table td:nth-child(3) {
