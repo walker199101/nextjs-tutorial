@@ -10,18 +10,22 @@ export default function Read({ params }: { params: { id: string } }) {
     const [content, setContent] = useState('');
     const [author, setAuthor] = useState('');
     const router = useRouter();
-    console.log(params);
 
     useEffect(() => {
-        fetch(`/api/posts/${params.id}`)
-        .then((res) => res.json())
-        .then((data) => {
-            setTitle(data.title);
-            setContent(data.content);
-            setAuthor(data.name);
-        }).catch((error) => {
-            console.error('Error fetching posts:', error);
-        });
+      Promise.all([
+        fetch(`/api/posts/${params.id}`),
+        fetch(`/api/posts/${params.id}`, { method: 'PUT' })
+      ])
+      .then(([result1, result2]) => {
+        return Promise.all([result1.json(), result2.json()]); // .json() 호출 후 Promise 반환
+      })
+      .then(([data1, data2]) => {
+        setTitle(data1.title);
+        setContent(data1.content);
+        setAuthor(data1.name);
+      }).catch((error) => {
+          console.error('Error fetching posts:', error);
+      });
     }, []);
 
     return (
@@ -71,7 +75,6 @@ export default function Read({ params }: { params: { id: string } }) {
             <button className={pageStyles.button} onClick={(e) => { e.preventDefault(); router.push('/dashboard')}}>취소</button>
             <div className={pageStyles.right_btn}>
                 <button type="submit" className={pageStyles.button} onClick={(e) => { e.preventDefault(); router.push(`/dashboard/edit/${params.id}`)}}>수정</button>
-                {/* <button type="submit" className={pageStyles.button}>삭제</button>*/}
                 <DeleteButton params={{ id: params.id }}/>
             </div>
           </div>

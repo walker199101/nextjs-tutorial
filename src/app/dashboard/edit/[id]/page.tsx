@@ -27,7 +27,7 @@ export default function Edit({ params }: { params: { id: string } }) {
       e.preventDefault();
   
       // 수정된 데이터를 서버로 전송
-      const response = await fetch(`/api/posts/${params.id}`, {
+      const response = await fetch(`/api/posts/edit/${params.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
