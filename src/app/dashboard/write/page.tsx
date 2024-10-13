@@ -1,32 +1,32 @@
-'use client';
+'use client'
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import pageStyles from './write.module.scss';
+import { useState } from 'react'
+import { useRouter } from 'next/navigation'
+import pageStyles from './write.module.scss'
 
 export default function Write() {
-    const [title, setTitle] = useState('');
-    const [content, setContent] = useState('');
-    const [author, setAuthor] = useState('');
-    const router = useRouter();
+    const [title, setTitle] = useState('')
+    const [content, setContent] = useState('')
+    const [author, setAuthor] = useState('')
+    const router = useRouter()
   
     const handleSubmit = async (e: { preventDefault: () => void; }) => {
-      e.preventDefault();
+      e.preventDefault()
       const response = await fetch('/api/write', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ title, content, author }),
-      });
+      })
       if (response.ok) {
         // 폼 제출 후 입력 값 초기화
-        setTitle('');
-        setContent('');
-        setAuthor('');
-        router.push('/dashboard');
+        setTitle('')
+        setContent('')
+        setAuthor('')
+        router.push('/dashboard')
       }
-    };
+    }
   
     return (
       <div className={pageStyles.container}>
@@ -74,5 +74,5 @@ export default function Write() {
           <button type="submit" className={pageStyles.button}>글쓰기</button>
         </form>
       </div>
-    );
+    )
   }

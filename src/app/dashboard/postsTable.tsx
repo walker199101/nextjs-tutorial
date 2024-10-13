@@ -1,8 +1,8 @@
-"use client";
+"use client"
 
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import { sql } from "@vercel/postgres";
+import { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
+import { sql } from "@vercel/postgres"
 import tableStyles from './../table.module.scss'
 
 type Post = {
@@ -14,16 +14,16 @@ type Post = {
 };
 
 export function PostsTable() {
-    const [posts, setPosts] = useState<Post[]>([]);
-    const router = useRouter();
+    const [posts, setPosts] = useState<Post[]>([])
+    const router = useRouter()
 
     useEffect(() => {
       fetch('/api/posts')
       .then((res) => res.json())
       .then((data) => {
-        setPosts(data);
+        setPosts(data)
       })
-    }, []);
+    }, [])
 
     return (
       <table className={tableStyles.table}>
@@ -40,7 +40,7 @@ export function PostsTable() {
           {posts && posts.map((post) => (
             <tr key={post.id}>
               <td>{post.id}</td>
-              <td onClick={() => { router.push(`/dashboard/${post.id}`); }}>{post.title}</td>
+              <td onClick={() => { router.push(`/dashboard/${post.id}`) }}>{post.title}</td>
               <td>{post.name}</td>
               <td>{post.created_at.toLocaleString()}</td>
               <td>{post.views}</td>

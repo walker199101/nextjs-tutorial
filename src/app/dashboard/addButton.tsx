@@ -1,10 +1,10 @@
-"use client";
+"use client"
 import buttonStyles from './../button.module.scss'
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation'
 
 export default function AddButton() {
-  const router = useRouter();
+  const router = useRouter()
   return <div className={buttonStyles.button}>
     <button onClick={() => { router.push('/dashboard/write') }}>글쓰기</button>
-  </div>;
+  </div>
 }

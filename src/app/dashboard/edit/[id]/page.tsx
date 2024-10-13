@@ -1,30 +1,30 @@
-'use client';
+'use client'
 
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import pageStyles from './edit.module.scss';
+import { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
+import pageStyles from './edit.module.scss'
 
 export default function Edit({ params }: { params: { id: string } }) {
-    const [title, setTitle] = useState('');
-    const [content, setContent] = useState('');
-    const [author, setAuthor] = useState('');
-    const router = useRouter();
-    console.log(params);
+    const [title, setTitle] = useState('')
+    const [content, setContent] = useState('')
+    const [author, setAuthor] = useState('')
+    const router = useRouter()
+    console.log(params)
 
     useEffect(() => {
         fetch(`/api/posts/${params.id}`)
         .then((res) => res.json())
         .then((data) => {
-            setTitle(data.title);
-            setContent(data.content);
-            setAuthor(data.name);
+            setTitle(data.title)
+            setContent(data.content)
+            setAuthor(data.name)
         }).catch((error) => {
-            console.error('Error fetching posts:', error);
-        });
-    }, []);
+            console.error('Error fetching posts:', error)
+        })
+    }, [])
 
     const handleSubmit = async (e: React.FormEvent) => {
-      e.preventDefault();
+      e.preventDefault()
   
       // 수정된 데이터를 서버로 전송
       const response = await fetch(`/api/posts/edit/${params.id}`, {
@@ -33,17 +33,17 @@ export default function Edit({ params }: { params: { id: string } }) {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ title, content, author }),
-      });
+      })
   
       if (response.ok) {
-        setTitle('');
-        setContent('');
-        setAuthor('');
-        router.push('/dashboard'); // 수정 후 대시보드로 이동
+        setTitle('')
+        setContent('')
+        setAuthor('')
+        router.push('/dashboard') // 수정 후 대시보드로 이동
       } else {
-        console.error('Failed to update post');
+        console.error('Failed to update post')
       }
-    };
+    }
 
     return (
       <div className={pageStyles.container}>
@@ -92,5 +92,5 @@ export default function Edit({ params }: { params: { id: string } }) {
           </div>
         </form>
       </div>
-    );
+    )
   }

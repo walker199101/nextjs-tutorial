@@ -1,15 +1,16 @@
-'use client';
+'use client'
 
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import pageStyles from './read.module.scss';
-import DeleteButton from './deleteButton';
+import { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
+import pageStyles from './read.module.scss'
+import DeleteButton from './deleteButton'
+import MyEditor from './../../components/MyEditor'
 
 export default function Read({ params }: { params: { id: string } }) {
-    const [title, setTitle] = useState('');
-    const [content, setContent] = useState('');
-    const [author, setAuthor] = useState('');
-    const router = useRouter();
+    const [title, setTitle] = useState('')
+    const [content, setContent] = useState('')
+    const [author, setAuthor] = useState('')
+    const router = useRouter()
 
     useEffect(() => {
       Promise.all([
@@ -17,16 +18,16 @@ export default function Read({ params }: { params: { id: string } }) {
         fetch(`/api/posts/${params.id}`, { method: 'PUT' })
       ])
       .then(([result1, result2]) => {
-        return Promise.all([result1.json(), result2.json()]); // .json() 호출 후 Promise 반환
+        return Promise.all([result1.json(), result2.json()]) // .json() 호출 후 Promise 반환
       })
       .then(([data1, data2]) => {
-        setTitle(data1.title);
-        setContent(data1.content);
-        setAuthor(data1.name);
+        setTitle(data1.title)
+        setContent(data1.content)
+        setAuthor(data1.name)
       }).catch((error) => {
-          console.error('Error fetching posts:', error);
-      });
-    }, []);
+          console.error('Error fetching posts:', error)
+      })
+    }, [])
 
     return (
       <div className={pageStyles.container}>
@@ -69,6 +70,10 @@ export default function Read({ params }: { params: { id: string } }) {
               readOnly
             />
           </div>
+
+          <div>
+            <MyEditor />
+          </div>
   
           {/* 버튼 그룹 */}
           <div className={pageStyles.button_group} >
@@ -80,5 +85,5 @@ export default function Read({ params }: { params: { id: string } }) {
           </div>
         </form>
       </div>
-    );
+    )
   }
