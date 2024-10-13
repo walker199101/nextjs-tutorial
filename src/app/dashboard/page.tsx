@@ -1,12 +1,14 @@
 // import variables from './../variables.module.scss'
-import AddButton from './addButton';
-import { PostsTable } from './postsTable';
+import AddButton from './addButton'
+import { PostsTable } from './postsTable'
+import Counter from '../counter'
 
 export default function Dashboard() {
   return (
     <div style={{display: 'flex', flexDirection: 'column', margin: '30px' }}>
       <PostsTable />
       <AddButton />
+      {/* <Counter /> */}
     </div>
-  );
+  )
 }
