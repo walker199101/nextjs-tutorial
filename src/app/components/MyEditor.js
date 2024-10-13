@@ -3,24 +3,19 @@ import React, { useState } from 'react'
 import { CKEditor } from '@ckeditor/ckeditor5-react'
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 
-const MyEditor = () => {
-  const [editorData, setEditorData] = useState('')
+const MyEditor = ({ initialData, onChange }) => {
 
   return (
     <div>
       <h2>CKEditor in Next.js</h2>
       <CKEditor
         editor={ClassicEditor}
-        data={editorData}
+        data={initialData}
         onChange={(event, editor) => {
           const data = editor.getData()
-          setEditorData(data)
+          onChange(data)
         }}
       />
-      <div>
-        <h3>Editor Content</h3>
-        <div>{editorData}</div>
-      </div>
     </div>
   )
 }

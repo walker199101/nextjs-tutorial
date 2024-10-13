@@ -3,13 +3,13 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import pageStyles from './edit.module.scss'
+import MyEditor from './../../../components/MyEditor'
 
 export default function Edit({ params }: { params: { id: string } }) {
     const [title, setTitle] = useState('')
     const [content, setContent] = useState('')
     const [author, setAuthor] = useState('')
     const router = useRouter()
-    console.log(params)
 
     useEffect(() => {
         fetch(`/api/posts/${params.id}`)
@@ -45,6 +45,10 @@ export default function Edit({ params }: { params: { id: string } }) {
       }
     }
 
+    const onChangeText = (data: string) => {
+      setContent(data)
+    }
+
     return (
       <div className={pageStyles.container}>
         <h1 style={{ textAlign:"center"}}>글 보기</h1>
@@ -74,14 +78,8 @@ export default function Edit({ params }: { params: { id: string } }) {
           </div>
   
           {/* 내용 입력 */}
-          <div className={pageStyles.field}>
-            <label htmlFor="content">내용:</label>
-            <textarea
-              id="content"
-              value={content}
-              className={pageStyles.textarea}
-              onChange={(e) => setContent(e.target.value)}
-            />
+          <div>
+            <MyEditor initialData={content} onChange={onChangeText}/>
           </div>
   
           {/* 버튼 그룹 */}

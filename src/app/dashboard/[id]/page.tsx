@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import pageStyles from './read.module.scss'
 import DeleteButton from './deleteButton'
-import MyEditor from './../../components/MyEditor'
 
 export default function Read({ params }: { params: { id: string } }) {
     const [title, setTitle] = useState('')
@@ -69,10 +68,6 @@ export default function Read({ params }: { params: { id: string } }) {
               onChange={(e) => setContent(e.target.value)}
               readOnly
             />
-          </div>
-
-          <div>
-            <MyEditor />
           </div>
   
           {/* 버튼 그룹 */}
